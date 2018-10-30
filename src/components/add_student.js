@@ -1,0 +1,66 @@
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+
+
+class AddStudent extends Component {
+        
+    renderInput( { input, type, label } ) {
+        const faUser = {
+            position: 'relative',
+            height: '38px',
+            width: '40px',
+            top: '8px',
+        }
+
+        const faBook = {
+            position: 'relative',
+            height: '38px',
+            width: '40px',
+            top: '8px'
+        }
+
+        const faGraduation = {
+            position: 'relative',
+            height: '38px',
+            width: '40px',
+            top: '8px'
+        }
+        const checkLabelInput = () => {
+            if ( label === "Student Name") {
+                return   <span style={faUser} className="input-group-text"><i className="fas fa-user"></i></span>
+            } else if ( label === "Student Course") {
+                return  <span style={faBook} className="input-group-text"><i className="fas fa-book-open"></i></span>
+            } else if ( label === "Student Grade") {
+                return <span style={faGraduation} className="input-group-text"><i className="fas fa-graduation-cap"></i></span>
+            }
+        }
+        return (
+            <div className="input-group mb-3">
+                <div className="input-group-prepend">
+                  {checkLabelInput()}
+                </div> 
+                <input placeholder={ label } className="my-2 form-control" autoComplete="off" {...input} type={ type || "text"}/>    
+            </div>
+
+        )
+    }
+    render() {
+        return (
+            <form className="col-lg-4" >
+                <div className="form-group">
+                    <h4>Add Student</h4>
+                    <Field label="Student Name" name="Student Name" component={this.renderInput}/>
+                    <Field label="Student Course" name="Student Course" component={this.renderInput}/>
+                    <Field label="Student Grade" name="Student Grade" component={this.renderInput} type="number"/>
+                </div>
+            </form>
+
+        )
+    }
+}
+
+AddStudent = reduxForm({
+    form: 'add-student',
+})(AddStudent);
+
+export default AddStudent;
