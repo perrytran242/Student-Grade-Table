@@ -5,13 +5,13 @@ class StudentTable extends Component {
     render() {
         return (
             <div className="row">
-                <table className="table col-lg-8">
+                <table className="my-4 table col-lg-8">
                     <thead className="dark">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Student Name</th>
+                            <th scope="col">Student Course</th>
+                            <th scope="col">Student Grade</th>
                         </tr>
                     </thead>
                 </table>
