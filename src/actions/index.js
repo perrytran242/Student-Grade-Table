@@ -1,29 +1,17 @@
 import axios from 'axios';
+import { db } from '../firebase';
 import types from './types';
 
-const BASE_URL = 'http://s-apis.learningfuze.com/sgt/get';
-const API_KEY = 'vlUhY1v3MX';
+export const getStudentList = () => dispatch => {
+    const dbRef = db.ref('/student')
 
-function formatPostData(data){
-    const postData = new URLSearchParams();
-
-    for(let [k, v] of Object.entries(data)){
-        postData.append(k, v);
-    }
-    return postData;
-}
-
-export const getStudentList= () => async dispatch => {
-
-    const postData = { api_key: API_KEY };
-    try {
-        const response = await axios.post(BASE_URL, formatPostData(postData));
+    dbRef.on('value', (snapshot) => {
+        console.log("DB SNAPSHOT:", snapshot.val());
 
         dispatch({
             type: types.GET_STUDENT_LIST,
-            payload: response.data.data,
+            payload: snapshot.val(),
         });
-    } catch(error) {
-        console.log('error message:', error.message);
-    }
-}   
+    });
+    return dbRef;
+}

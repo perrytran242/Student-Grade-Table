@@ -7,24 +7,24 @@ class StudentTable extends Component {
     componentDidMount() {
         this.props.getStudentList();
     }
-    renderStudentList() {
-        const { students } = this.props;
+    // renderStudentList() {
+    //     const { students } = this.props;
 
-        return students.map( (student) => {
-            return (
-                <Fragment key={student.id}>
-                    <tr>
-                        <th>{student.name}</th>
-                        <th>{student.course}</th>
-                        <th>{student.grade}</th>
-                        <th>
-                            <button type="button" className="btn btn-danger">Delete</button>
-                        </th>
-                    </tr>
-                </Fragment>
-            )
-        });
-    }
+    //     return students.map( (student) => {
+    //         return (
+    //             <Fragment key={student.id}>
+    //                 <tr>
+    //                     <th>{student.name}</th>
+    //                     <th>{student.course}</th>
+    //                     <th>{student.grade}</th>
+    //                     <th>
+    //                         <button type="button" className="btn btn-danger">Delete</button>
+    //                     </th>
+    //                 </tr>
+    //             </Fragment>
+    //         )
+    //     });
+    // }
     render() {
         const { students } = this.props;
         console.log("STUDENTS:", students);
@@ -44,7 +44,7 @@ class StudentTable extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.renderStudentList()}
+                        {/* {this.renderStudentList()} */}
                     </tbody>
                 </table>
             <AddStudent/>
