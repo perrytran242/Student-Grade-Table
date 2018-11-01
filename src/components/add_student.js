@@ -9,25 +9,25 @@ class AddStudent extends Component {
             position: 'relative',
             height: '38px',
             width: '40px',
-            top: '8px',
+            top: '4px',
         }
 
         const faBook = {
             position: 'relative',
             height: '38px',
             width: '40px',
-            top: '8px'
+            top: '4px'
         }
 
         const faGraduation = {
             position: 'relative',
             height: '38px',
             width: '40px',
-            top: '8px'
+            top: '4px'
         }
         const checkLabelInput = () => {
             if ( label === "Student Name") {
-                return   <span style={faUser} className="input-group-text"><i className="fas fa-user"></i></span>
+                return  <span style={faUser} className="input-group-text"><i className="fas fa-user"></i></span>
             } else if ( label === "Student Course") {
                 return  <span style={faBook} className="input-group-text"><i className="fas fa-book-open"></i></span>
             } else if ( label === "Student Grade") {
@@ -39,7 +39,7 @@ class AddStudent extends Component {
                 <div className="input-group-prepend">
                   {checkLabelInput()}
                 </div> 
-                <input placeholder={ label } className="my-2 form-control" autoComplete="off" {...input} type={ type || "text"}/>    
+                <input placeholder={ label } className="my-1 form-control" autoComplete="off" {...input} type={ type || "text"}/>    
             </div>
 
         )
@@ -52,6 +52,9 @@ class AddStudent extends Component {
                     <Field label="Student Name" name="Student Name" component={this.renderInput}/>
                     <Field label="Student Course" name="Student Course" component={this.renderInput}/>
                     <Field label="Student Grade" name="Student Grade" component={this.renderInput} type="number"/>
+                    <button type="button" className="mx-2 btn btn-success">Add</button>
+                    <button type="button" className="mx-2 btn btn-light">Cancel</button>
+                    <button type="button" className="mx-2 btn btn-info">Get Data From Server</button>
                 </div>
             </form>
 
