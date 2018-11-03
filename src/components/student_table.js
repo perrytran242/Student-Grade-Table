@@ -7,33 +7,32 @@ class StudentTable extends Component {
     componentDidMount() {
         this.props.getStudentList();
     }
-    // renderStudentList() {
-    //     const { students } = this.props;
-
-    //     return students.map( (student) => {
-    //         return (
-    //             <Fragment key={student.id}>
-    //                 <tr>
-    //                     <th>{student.name}</th>
-    //                     <th>{student.course}</th>
-    //                     <th>{student.grade}</th>
-    //                     <th>
-    //                         <button type="button" className="btn btn-danger">Delete</button>
-    //                     </th>
-    //                 </tr>
-    //             </Fragment>
-    //         )
-    //     });
-    // }
-    render() {
+    renderStudentList() {
         const { students } = this.props;
-        console.log("STUDENTS:", students);
-        if (!students) {
+
+        return Object.keys(students).map(key => {
+            const { name, grade, subject } = students[key];
+            return (
+                <Fragment key={key}>
+                    <tr>
+                        <td>{name}</td>
+                        <td>{subject}</td>
+                        <td>{grade}</td>
+                        <td>
+                            <button type="button" className="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                </Fragment>
+            )
+        });
+    }
+    render() {
+        const { students } = this.props; 
+        if ( !students) {
             return null;
         }
-
         return (
-            <div className="row">
+            <div className="row">   
                 <table className="my-2 table col-lg-8">
                     <thead className="thead-dark">
                         <tr>
@@ -44,10 +43,11 @@ class StudentTable extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* {this.renderStudentList()} */}
+                        {this.renderStudentList()}
                     </tbody>
                 </table>
-            <AddStudent/>
+
+                <AddStudent/>
             </div>
         )
     }

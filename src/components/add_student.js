@@ -3,7 +3,10 @@ import { Field, reduxForm } from 'redux-form';
 
 
 class AddStudent extends Component {
-        
+
+    addStudent = (values) => {
+        console.log("STUDENT NAMES:", values);
+    }    
     renderInput( { input, type, label } ) {
         const faUser = {
             position: 'relative',
@@ -25,6 +28,7 @@ class AddStudent extends Component {
             width: '40px',
             top: '4px'
         }
+
         const checkLabelInput = () => {
             if ( label === "Student Name") {
                 return  <span style={faUser} className="input-group-text"><i className="fas fa-user"></i></span>
@@ -41,23 +45,21 @@ class AddStudent extends Component {
                 </div> 
                 <input placeholder={ label } className="my-1 form-control" autoComplete="off" {...input} type={ type || "text"}/>    
             </div>
-
         )
     }
     render() {
-        return (
-            <form className="col-lg-4" >
-                <div className="form-group">
-                    <h4>Add Student</h4>
-                    <Field label="Student Name" name="Student Name" component={this.renderInput}/>
-                    <Field label="Student Course" name="Student Course" component={this.renderInput}/>
-                    <Field label="Student Grade" name="Student Grade" component={this.renderInput} type="number"/>
-                    <button type="button" className="mx-2 btn btn-success">Add</button>
-                    <button type="button" className="mx-2 btn btn-light">Cancel</button>
-                    <button type="button" className="mx-2 btn btn-info">Get Data From Server</button>
-                </div>
-            </form>
+        const { handleSubmit } = this.props;
 
+        return (
+            <form className="form-group col-lg-4" >
+                <h4>Add Student</h4>
+                <Field label="name" name="Student Name" component={this.renderInput}/>
+                <Field label="course" name="Student Course" component={this.renderInput}/>
+                <Field label="grade" name="Student Grade" component={this.renderInput} type="number"/>
+                <button onClick={handleSubmit(this.addStudent)} type="button" className="mx-2 btn btn-success">Add</button>
+                <button type="button" className="mx-2 btn btn-light">Cancel</button>
+                <button type="button" className="mx-2 btn btn-info">Get Data From Server</button>
+            </form>
         )
     }
 }

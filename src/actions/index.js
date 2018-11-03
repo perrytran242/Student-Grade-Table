@@ -1,17 +1,16 @@
-import axios from 'axios';
 import { db } from '../firebase';
 import types from './types';
 
 export const getStudentList = () => dispatch => {
-    const dbRef = db.ref('/student')
+    const dbRef = db.ref('/students')
 
-    dbRef.on('value', (snapshot) => {
-        console.log("DB SNAPSHOT:", snapshot.val());
+    dbRef.once('value').then( (snapshot) => {
+        const val = snapshot.val();
 
         dispatch({
             type: types.GET_STUDENT_LIST,
-            payload: snapshot.val(),
+            payload: val,
         });
     });
-    return dbRef;
+
 }
