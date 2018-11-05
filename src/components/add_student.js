@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { addStudent } from '../actions';
+import { getStudentList } from '../actions';
 
 
 class AddStudent extends Component {
 
     addStudent = (values) => {
-        console.log("STUDENT NAMES:", values);
+        this.props.addStudent(values.name, values.grade, values.course);
+        this.props.getStudentList();
     }    
-    renderInput( { input, type, label } ) {
+    renderInput( { input, type, label, meta } ) {
         const faUser = {
             position: 'relative',
             height: '38px',
@@ -48,14 +52,15 @@ class AddStudent extends Component {
         )
     }
     render() {
+        
         const { handleSubmit } = this.props;
 
         return (
             <form className="form-group col-lg-4" >
                 <h4>Add Student</h4>
-                <Field label="name" name="Student Name" component={this.renderInput}/>
-                <Field label="course" name="Student Course" component={this.renderInput}/>
-                <Field label="grade" name="Student Grade" component={this.renderInput} type="number"/>
+                <Field label="Student Name" name="name" component={this.renderInput}/>
+                <Field label="Student Course" name="course" component={this.renderInput}/>
+                <Field label="Student Grade" name="grade" component={this.renderInput} type="number"/>
                 <button onClick={handleSubmit(this.addStudent)} type="button" className="mx-2 btn btn-success">Add</button>
                 <button type="button" className="mx-2 btn btn-light">Cancel</button>
                 <button type="button" className="mx-2 btn btn-info">Get Data From Server</button>
@@ -64,8 +69,12 @@ class AddStudent extends Component {
     }
 }
 
+
 AddStudent = reduxForm({
     form: 'add-student',
 })(AddStudent);
 
-export default AddStudent;
+export default connect(null, {
+    addStudent: addStudent,
+    getStudentList: getStudentList
+})(AddStudent);

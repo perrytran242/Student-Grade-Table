@@ -14,3 +14,19 @@ export const getStudentList = () => dispatch => {
     });
 
 }
+
+export const addStudent = (name, grade, subject) => dispatch => {
+    const dbRef = db.ref('/students');
+    console.log(dbRef);
+
+    dbRef.push({
+        name: name,
+        grade: grade,
+        subject: subject
+    }).then( () => {
+        console.log('DATA IS SAVED');
+
+    }).catch( (error) => {
+        console.log("Error:", error);
+    });
+}

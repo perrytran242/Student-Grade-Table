@@ -21,6 +21,9 @@ class StudentTable extends Component {
                         <td>
                             <button type="button" className="btn btn-danger">Delete</button>
                         </td>
+                        <td>
+                            <button type="button" className="btn btn-warning">Update</button>
+                        </td>
                     </tr>
                 </Fragment>
             )
@@ -39,7 +42,8 @@ class StudentTable extends Component {
                             <th scope="col">Student Name</th>
                             <th scope="col">Student Course</th>
                             <th scope="col">Student Grade</th>
-                            <th scope="col">Operations</th>
+                            <th scope="col">Delete</th>
+                            <th scope="col">Update</th>
                         </tr>
                     </thead>
                     <tbody>
