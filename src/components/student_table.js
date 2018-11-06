@@ -2,16 +2,35 @@ import React, { Component, Fragment } from 'react';
 import AddStudent from './add_student';
 import { connect } from 'react-redux';
 import { getStudentList } from '../actions';
+import { updateStudentInfo } from '../actions';
+import { deleteStudent } from '../actions';
+import { getFormValues } from 'redux-form';
+
 
 class StudentTable extends Component {
     componentDidMount() {
         this.props.getStudentList();
     }
-    renderStudentList() {
-        const { students } = this.props;
 
+    updateStudent(name, grade, subject, id) {
+        const { updateStudentInfo, getStudentList } = this.props;
+
+        updateStudentInfo(name, grade, subject, id);
+        getStudentList(); 
+    }
+
+    removeStudent(id) {
+        const { deleteStudent, getStudentList } = this.props;
+
+        deleteStudent(id);
+        getStudentList();
+    }
+    renderStudentList() {
+        const { students, formState } = this.props;
+        
         return Object.keys(students).map(key => {
             const { name, grade, subject } = students[key];
+            
             return (
                 <Fragment key={key}>
                     <tr>
@@ -19,20 +38,22 @@ class StudentTable extends Component {
                         <td>{subject}</td>
                         <td>{grade}</td>
                         <td>
-                            <button type="button" className="btn btn-danger">Delete</button>
+                            <button onClick={() => this.removeStudent(key)} type="button" className="btn btn-danger">Delete</button>
                         </td>
                         <td>
-                            <button type="button" className="btn btn-warning">Update</button>
+                            <button onClick={() => this.updateStudent(formState.name, formState.grade, formState.course, key)} type="button" className="btn btn-warning">Update</button>
                         </td>
                     </tr>
                 </Fragment>
             )
         });
     }
+
     render() {
+        console.log(this.props);
         const { students } = this.props; 
         if ( !students) {
-            return null;
+            return <AddStudent/>;
         }
         return (
             <div className="row">   
@@ -50,7 +71,6 @@ class StudentTable extends Component {
                         {this.renderStudentList()}
                     </tbody>
                 </table>
-
                 <AddStudent/>
             </div>
         )
@@ -60,9 +80,12 @@ class StudentTable extends Component {
 function mapStateToProps(state) {
     return {
         students: state.students.studentList,
+        formState: getFormValues('add-student')(state),
     }
 }
 
 export default connect(mapStateToProps, {
-    getStudentList: getStudentList
+    getStudentList: getStudentList,
+    updateStudentInfo: updateStudentInfo,
+    deleteStudent: deleteStudent,
 })(StudentTable);
