@@ -25,7 +25,7 @@
     padding-bottom: 25px;
 }
 
-.basic-modal-close {
+.close-button {
     height: 30px;
     width: 30px;
     line-height: 30px;
@@ -37,9 +37,10 @@
     font-weight: bold;
     color: #dedede;
     cursor: pointer;
+    text-align: center;
 }
 
-.basic-modal-close:hover {
+.close-button:hover {
     color: #ff0000;
     background-color: #dedede;
 }

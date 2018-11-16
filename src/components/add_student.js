@@ -58,7 +58,7 @@ class AddStudent extends Component {
     render() {
         const { handleSubmit } = this.props;
         return (
-            <form className="form-group col-lg-4" >
+            <form className="form-group col-lg-4 order-lg-2 order-sm-1 order-xs-1">
                 <h4>Add Student or Update</h4>
                 <Field label="Student Name" name="name" component={this.renderInput}/>
                 <Field label="Student Course" name="course" component={this.renderInput}/>

@@ -48,14 +48,14 @@ export const deleteStudent = (id) => dispatch => {
     dbRef.remove();
 }
 
-export const openDeleteModal = () => {
+export function openDeleteModal() {
     return {
         type: types.OPEN_DELETE_MODAL,
         payload: true,
     }
 }
 
-export const closeDeleteModal = () => {
+export function closeDeleteModal() {
     return {
         type: types.CLOSE_DELETE_MODAL,
         payload: false,
