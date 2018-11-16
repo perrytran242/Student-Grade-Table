@@ -63,7 +63,7 @@ class AddStudent extends Component {
                 <Field label="Student Name" name="name" component={this.renderInput}/>
                 <Field label="Student Course" name="course" component={this.renderInput}/>
                 <Field label="Student Grade" name="grade" component={this.renderInput} type="number"/>
-                <button onClick={handleSubmit(this.addStudent)} type="button" className="mx-2 btn btn-success">Add</button>
+                <button onClick={handleSubmit(this.addStudent)} type="button" className="btn btn-success">Add</button>
             </form>
         )
     }

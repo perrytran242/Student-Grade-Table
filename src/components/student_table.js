@@ -5,7 +5,7 @@ import { getStudentList } from '../actions';
 import { updateStudentInfo } from '../actions';
 import { deleteStudent } from '../actions';
 import { getFormValues } from 'redux-form';
-
+// import DeleteModal from './delete_modal';
 
 class StudentTable extends Component {
     componentDidMount() {
@@ -25,6 +25,7 @@ class StudentTable extends Component {
         deleteStudent(id);
         getStudentList();
     }
+
     renderStudentList() {
         const { students, formState } = this.props;
         
