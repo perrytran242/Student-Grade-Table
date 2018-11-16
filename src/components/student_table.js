@@ -2,8 +2,7 @@ import React, { Component, Fragment } from 'react';
 import AddStudent from './add_student';
 import DeleteModal from './delete_modal';
 import { connect } from 'react-redux';
-import { getFormValues } from 'redux-form';
-
+import { getFormValues, formValueSelector } from 'redux-form';
 
 import { openDeleteModal } from '../actions';
 import { closeDeleteModal } from '../actions';
@@ -32,10 +31,9 @@ class StudentTable extends Component {
     }
 
     renderStudentList() {
-        const { students, formValues } = this.props;
+        const { students, inputValues } = this.props;
         return Object.keys(students).map(key => {
             const { name, grade, subject } = students[key];
-            
             return (
                 <Fragment key={key}>
                     <tr>
@@ -47,7 +45,7 @@ class StudentTable extends Component {
                             {/* <button onClick={() => this.removeStudent(key)} type="button" className="btn btn-danger">Delete</button> */}
                         </td>
                         <td>
-                            <button onClick={() => this.updateStudent(formValues.name, formValues.grade, formValues.course, key)} type="button" className="btn btn-warning">Update</button>
+                            <button onClick={() => this.updateStudent(inputValues.name, inputValues.grade, inputValues.course, key)} type="button" className="btn btn-warning">Update</button>
                         </td>
                     </tr>
                 </Fragment>
@@ -56,14 +54,11 @@ class StudentTable extends Component {
     }
 
     render() {
-        console.log("PROPS:", this.props);
+        console.log("PROPS", this.props);
         const { students } = this.props; 
         if ( !students) {
             return <AddStudent/>;
-        }
-
-        console.log(this.props.isOpen);
-  
+        }  
         return (
             <div className="row">   
                 <div>{this.props.isOpen ? <DeleteModal/> : null}</div>
@@ -88,12 +83,25 @@ class StudentTable extends Component {
 }
 
 function mapStateToProps(state) {
+
     return {
         students: state.students.studentList,
-        formValues: getFormValues('add-student')(state),
+        inputValues: getFormValues('add-student')(state),
         isOpen: state.delete.isOpen
     }
 }
+
+const selector = formValueSelector('add-student');
+StudentTable = connect(state=> {
+    const name = selector(state, 'name');
+    const course = selector(state, 'course');
+
+    return {
+        course,
+        name
+    }
+})(StudentTable)
+
 
 export default connect(mapStateToProps, {
     getStudentList: getStudentList,

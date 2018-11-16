@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { closeDeleteModal } from '../actions';
+import { getFormValues, formValueSelector } from 'redux-form';
+
 
 import './delete_modal.css';
 
 class DeleteModal extends Component {
     render() {
-        console.log("PROPS IN DELETE MODAL:", this.props);
+        console.log(this.props);
         return (
             <div className="basic-modal" onClick={this.props.closeDeleteModal}>
                 <div onClick={e => e.stopPropagation()} className="basic-modal-content">
@@ -21,8 +23,15 @@ class DeleteModal extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    console.log(state);
+    return {
+        formValues: getFormValues('add-student')(state)
+    }
+}
 
-export default connect(null, {
+
+export default connect(mapStateToProps, {
     closeDeleteModal: closeDeleteModal
 })(DeleteModal);
 

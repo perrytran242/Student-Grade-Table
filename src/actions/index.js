@@ -48,6 +48,21 @@ export const deleteStudent = (id) => dispatch => {
     dbRef.remove();
 }
 
+export const getStudentInfo = (id) => dispatch => {
+    const dbRef = db.ref(`/students/${id}`);
+
+    dbRef.once('value').then( (snapshot) => {
+        const val = snapshot.val();
+        console.log(val);
+
+        dispatch({
+            type: types.GET_STUDENT_INFO,
+            payload: val
+        });
+    });
+}
+
+
 export function openDeleteModal() {
     return {
         type: types.OPEN_DELETE_MODAL,

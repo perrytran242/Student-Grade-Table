@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { connect } from 'react-redux';
 import { addStudent } from '../actions';
 import { getStudentList } from '../actions';
@@ -56,6 +56,7 @@ class AddStudent extends Component {
         )
     }
     render() {
+        console.log(this.props);
         const { handleSubmit } = this.props;
         return (
             <form className="form-group col-lg-4 order-lg-2 order-sm-1 order-xs-1">
@@ -68,6 +69,8 @@ class AddStudent extends Component {
         )
     }
 }   
+
+
 
 function validate(values) {
     const { name, course, grade } = values;
@@ -85,11 +88,21 @@ function validate(values) {
     return errors
 }
 
-
 AddStudent = reduxForm({
     form: 'add-student',
     validate: validate,
 })(AddStudent);
+
+const selector = formValueSelector('add-student');
+AddStudent = connect(state=> {
+    const course = selector(state, 'course');
+
+    return {
+        course
+    }
+})(AddStudent)
+
+
 
 export default connect(null, {
     addStudent: addStudent,
