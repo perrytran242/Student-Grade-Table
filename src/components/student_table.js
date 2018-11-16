@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import AddStudent from './add_student';
 import DeleteModal from './delete_modal';
 import { connect } from 'react-redux';
-import { getFormValues, formValueSelector } from 'redux-form';
+import { getFormValues } from 'redux-form';
 
-import { openDeleteModal } from '../actions';
-import { closeDeleteModal } from '../actions';
+import { getStudentInfo } from '../actions';
+import { openModal } from '../actions';
 import { getStudentList } from '../actions';
 import { updateStudentInfo } from '../actions';
 import { deleteStudent } from '../actions';
@@ -41,7 +41,7 @@ class StudentTable extends Component {
                         <td>{subject}</td>
                         <td>{grade}</td>
                         <td>
-                            <button onClick={this.props.openDeleteModal} className="btn btn-danger" type="button" >Delete</button>
+                            <button onClick={this.props.openModal} className="btn btn-danger" type="button" >Delete</button>
                             {/* <button onClick={() => this.removeStudent(key)} type="button" className="btn btn-danger">Delete</button> */}
                         </td>
                         <td>
@@ -54,14 +54,15 @@ class StudentTable extends Component {
     }
 
     render() {
-        console.log("PROPS", this.props);
+        
         const { students } = this.props; 
+
         if ( !students) {
             return <AddStudent/>;
         }  
         return (
             <div className="row">   
-                <div>{this.props.isOpen ? <DeleteModal/> : null}</div>
+                <div>{this.props.isOpen ? <DeleteModal /> : null}</div>
                 <table className="my-2 table col-lg-8 order-lg-1 order-sm-2 order-2">
                     <thead className="thead-dark">
                         <tr>
@@ -91,22 +92,11 @@ function mapStateToProps(state) {
     }
 }
 
-const selector = formValueSelector('add-student');
-StudentTable = connect(state=> {
-    const name = selector(state, 'name');
-    const course = selector(state, 'course');
-
-    return {
-        course,
-        name
-    }
-})(StudentTable)
-
 
 export default connect(mapStateToProps, {
     getStudentList: getStudentList,
     updateStudentInfo: updateStudentInfo,
     deleteStudent: deleteStudent,
-    openDeleteModal: openDeleteModal,
-    closeDeleteModal: closeDeleteModal,
+    openModal: openModal,
+    getStudentInfo: getStudentInfo
 })(StudentTable);

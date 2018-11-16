@@ -70,8 +70,6 @@ class AddStudent extends Component {
     }
 }   
 
-
-
 function validate(values) {
     const { name, course, grade } = values;
     const errors = {};
@@ -92,15 +90,6 @@ AddStudent = reduxForm({
     form: 'add-student',
     validate: validate,
 })(AddStudent);
-
-const selector = formValueSelector('add-student');
-AddStudent = connect(state=> {
-    const course = selector(state, 'course');
-
-    return {
-        course
-    }
-})(AddStudent)
 
 
 

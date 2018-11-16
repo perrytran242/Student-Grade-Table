@@ -63,14 +63,14 @@ export const getStudentInfo = (id) => dispatch => {
 }
 
 
-export function openDeleteModal() {
+export function openModal() {
     return {
         type: types.OPEN_DELETE_MODAL,
         payload: true,
     }
 }
 
-export function closeDeleteModal() {
+export function closeModal() {
     return {
         type: types.CLOSE_DELETE_MODAL,
         payload: false,
