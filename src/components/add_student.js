@@ -58,13 +58,12 @@ class AddStudent extends Component {
     render() {
         const { handleSubmit } = this.props;
         return (
-            <form className="form-group col-lg-4" >
+            <form className="form-group col-lg-4 order-lg-2 order-sm-1 order-xs-1">
                 <h4>Add Student or Update</h4>
                 <Field label="Student Name" name="name" component={this.renderInput}/>
                 <Field label="Student Course" name="course" component={this.renderInput}/>
                 <Field label="Student Grade" name="grade" component={this.renderInput} type="number"/>
-                <button onClick={handleSubmit(this.addStudent)} type="button" className="mx-2 btn btn-success">Add</button>
-                <button onClick={() => this.props.getStudentList} type="button" className="mx-2 btn btn-info">Get Data From Server</button>
+                <button onClick={handleSubmit(this.addStudent)} type="button" className="btn btn-success">Add</button>
             </form>
         )
     }

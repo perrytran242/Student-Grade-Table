@@ -5,7 +5,7 @@ import StudentTable from './student_table';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => (
-    <div className="container-fluid">
+    <div className="container">
         <StudentAverage/>
         <StudentTable/>
     </div>

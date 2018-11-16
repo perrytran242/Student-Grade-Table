@@ -1,10 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import AddStudent from './add_student';
+import DeleteModal from './delete_modal';
 import { connect } from 'react-redux';
+import { getFormValues } from 'redux-form';
+
+
+import { openDeleteModal } from '../actions';
+import { closeDeleteModal } from '../actions';
 import { getStudentList } from '../actions';
 import { updateStudentInfo } from '../actions';
 import { deleteStudent } from '../actions';
-import { getFormValues } from 'redux-form';
 
 
 class StudentTable extends Component {
@@ -25,9 +30,9 @@ class StudentTable extends Component {
         deleteStudent(id);
         getStudentList();
     }
+
     renderStudentList() {
-        const { students, formState } = this.props;
-        
+        const { students, formValues } = this.props;
         return Object.keys(students).map(key => {
             const { name, grade, subject } = students[key];
             
@@ -38,10 +43,11 @@ class StudentTable extends Component {
                         <td>{subject}</td>
                         <td>{grade}</td>
                         <td>
-                            <button onClick={() => this.removeStudent(key)} type="button" className="btn btn-danger">Delete</button>
+                            <button onClick={this.props.openDeleteModal} className="btn btn-danger" type="button" >Delete</button>
+                            {/* <button onClick={() => this.removeStudent(key)} type="button" className="btn btn-danger">Delete</button> */}
                         </td>
                         <td>
-                            <button onClick={() => this.updateStudent(formState.name, formState.grade, formState.course, key)} type="button" className="btn btn-warning">Update</button>
+                            <button onClick={() => this.updateStudent(formValues.name, formValues.grade, formValues.course, key)} type="button" className="btn btn-warning">Update</button>
                         </td>
                     </tr>
                 </Fragment>
@@ -50,14 +56,18 @@ class StudentTable extends Component {
     }
 
     render() {
-        console.log(this.props);
+        console.log("PROPS:", this.props);
         const { students } = this.props; 
         if ( !students) {
             return <AddStudent/>;
         }
+
+        console.log(this.props.isOpen);
+  
         return (
             <div className="row">   
-                <table className="my-2 table col-lg-8">
+                <div>{this.props.isOpen ? <DeleteModal/> : null}</div>
+                <table className="my-2 table col-lg-8 order-lg-1 order-sm-2 order-2">
                     <thead className="thead-dark">
                         <tr>
                             <th scope="col">Student Name</th>
@@ -80,7 +90,8 @@ class StudentTable extends Component {
 function mapStateToProps(state) {
     return {
         students: state.students.studentList,
-        formState: getFormValues('add-student')(state),
+        formValues: getFormValues('add-student')(state),
+        isOpen: state.delete.isOpen
     }
 }
 
@@ -88,4 +99,6 @@ export default connect(mapStateToProps, {
     getStudentList: getStudentList,
     updateStudentInfo: updateStudentInfo,
     deleteStudent: deleteStudent,
+    openDeleteModal: openDeleteModal,
+    closeDeleteModal: closeDeleteModal,
 })(StudentTable);
