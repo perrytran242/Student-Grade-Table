@@ -13,16 +13,16 @@
     background-color: white;
     border-radius: 20px;
     margin: auto;
-    padding: 25px;
+    padding: 15px;
     position: relative;
-    width: 40%;
+    width: 30%;
     z-index: 1;
 }
 
 .basic-modal-content h1 {
     border-bottom: 1px solid #dedede;
     margin-bottom: 20px;
-    padding-bottom: 25px;
+    padding-bottom: 10px;
 }
 
 .close-button {
@@ -43,4 +43,9 @@
 .close-button:hover {
     color: #ff0000;
     background-color: #dedede;
+}
+
+.student-info {
+    border-bottom: 1px solid #dedede;
+    margin-bottom: 15px;
 }

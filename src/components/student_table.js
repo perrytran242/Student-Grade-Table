@@ -4,15 +4,23 @@ import DeleteModal from './delete_modal';
 import { connect } from 'react-redux';
 import { getFormValues } from 'redux-form';
 
-
-import { openDeleteModal } from '../actions';
-import { closeDeleteModal } from '../actions';
+import { getStudentInfo } from '../actions';
+import { openModal } from '../actions';
 import { getStudentList } from '../actions';
 import { updateStudentInfo } from '../actions';
 import { deleteStudent } from '../actions';
 
 
 class StudentTable extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            key: null,
+            id: null
+        }
+    }
+
     componentDidMount() {
         this.props.getStudentList();
     }
@@ -31,11 +39,18 @@ class StudentTable extends Component {
         getStudentList();
     }
 
+    openDeleteModal(studentInfo, id) {
+        this.props.openModal();
+        this.setState({
+            studentData: this.props.students[studentInfo],
+            id
+        });
+    }
+
     renderStudentList() {
-        const { students, formValues } = this.props;
+        const { students, inputValues } = this.props;
         return Object.keys(students).map(key => {
             const { name, grade, subject } = students[key];
-            
             return (
                 <Fragment key={key}>
                     <tr>
@@ -43,11 +58,11 @@ class StudentTable extends Component {
                         <td>{subject}</td>
                         <td>{grade}</td>
                         <td>
-                            <button onClick={this.props.openDeleteModal} className="btn btn-danger" type="button" >Delete</button>
-                            {/* <button onClick={() => this.removeStudent(key)} type="button" className="btn btn-danger">Delete</button> */}
+                            <button onClick={() => this.updateStudent(inputValues.name, inputValues.grade, inputValues.course, key)} type="button" className="mr-1 btn btn-warning btn-sm">Edit</button>
+                            <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
+
                         </td>
                         <td>
-                            <button onClick={() => this.updateStudent(formValues.name, formValues.grade, formValues.course, key)} type="button" className="btn btn-warning">Update</button>
                         </td>
                     </tr>
                 </Fragment>
@@ -56,25 +71,21 @@ class StudentTable extends Component {
     }
 
     render() {
-        console.log("PROPS:", this.props);
         const { students } = this.props; 
+
         if ( !students) {
             return <AddStudent/>;
-        }
-
-        console.log(this.props.isOpen);
-  
+        }  
         return (
             <div className="row">   
-                <div>{this.props.isOpen ? <DeleteModal/> : null}</div>
+                <div>{this.props.isOpen ? <DeleteModal id={this.state.id} studentData={this.state.studentData} /> : null}</div>
                 <table className="my-2 table col-lg-8 order-lg-1 order-sm-2 order-2">
                     <thead className="thead-dark">
                         <tr>
                             <th scope="col">Student Name</th>
                             <th scope="col">Student Course</th>
                             <th scope="col">Student Grade</th>
-                            <th scope="col">Delete</th>
-                            <th scope="col">Update</th>
+                            <th scope="col">Operations</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,17 +99,19 @@ class StudentTable extends Component {
 }
 
 function mapStateToProps(state) {
+
     return {
         students: state.students.studentList,
-        formValues: getFormValues('add-student')(state),
+        inputValues: getFormValues('add-student')(state),
         isOpen: state.delete.isOpen
     }
 }
+
 
 export default connect(mapStateToProps, {
     getStudentList: getStudentList,
     updateStudentInfo: updateStudentInfo,
     deleteStudent: deleteStudent,
-    openDeleteModal: openDeleteModal,
-    closeDeleteModal: closeDeleteModal,
+    openModal: openModal,
+    getStudentInfo: getStudentInfo
 })(StudentTable);

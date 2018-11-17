@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, } from 'redux-form';
 import { connect } from 'react-redux';
 import { addStudent } from '../actions';
 import { getStudentList } from '../actions';
@@ -85,11 +85,12 @@ function validate(values) {
     return errors
 }
 
-
 AddStudent = reduxForm({
     form: 'add-student',
     validate: validate,
 })(AddStudent);
+
+
 
 export default connect(null, {
     addStudent: addStudent,
