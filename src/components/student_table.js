@@ -39,10 +39,10 @@ class StudentTable extends Component {
         getStudentList();
     }
 
-    openDeleteModal(key, id) {
+    openDeleteModal(studentInfo, id) {
         this.props.openModal();
         this.setState({
-            studentData: this.props.students[key],
+            studentData: this.props.students[studentInfo],
             id
         });
     }
@@ -58,10 +58,11 @@ class StudentTable extends Component {
                         <td>{subject}</td>
                         <td>{grade}</td>
                         <td>
-                            <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger" type="button">Delete</button>
+                            <button onClick={() => this.updateStudent(inputValues.name, inputValues.grade, inputValues.course, key)} type="button" className="mr-1 btn btn-warning btn-sm">Edit</button>
+                            <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
+
                         </td>
                         <td>
-                            <button onClick={() => this.updateStudent(inputValues.name, inputValues.grade, inputValues.course, key)} type="button" className="btn btn-warning">Update</button>
                         </td>
                     </tr>
                 </Fragment>
@@ -84,8 +85,7 @@ class StudentTable extends Component {
                             <th scope="col">Student Name</th>
                             <th scope="col">Student Course</th>
                             <th scope="col">Student Grade</th>
-                            <th scope="col">Delete</th>
-                            <th scope="col">Update</th>
+                            <th scope="col">Operations</th>
                         </tr>
                     </thead>
                     <tbody>

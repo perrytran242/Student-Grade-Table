@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { closeModal } from '../actions';
 import { deleteStudent } from '../actions';
+import { getStudentList } from '../actions';
 
 import './delete_modal.css';
 
 class DeleteModal extends Component {
 
-    deleteCurrentStudent(id) {
-        
+    deleteCurrentStudent = (id) => {
+        this.props.deleteStudent(id);
+        this.props.closeModal();
+        this.props.getStudentList();
     }
     render() {
-        console.log("DELETE MODAL:", this.props);
+        const { id } = this.props;
         return (
             <div className="basic-modal" onClick={this.props.closeModal}>
                 <div onClick={e => e.stopPropagation()} className="basic-modal-content">
@@ -24,8 +27,8 @@ class DeleteModal extends Component {
                         <p>Grade: {this.props.studentData.grade}</p>
                     </div>  
                     <div className="text-center">
-                        <button type="button" className="btn btn-danger">Delete</button>
-                        <button type="button" className="btn btn-light">Cancel</button>
+                        <button onClick={() => this.deleteCurrentStudent(id)} type="button" className="btn btn-danger">Delete</button>
+                        <button onClick={this.props.closeModal} type="button" className="btn btn-light">Cancel</button>
                     </div>
                     </div>
                 </div>
@@ -36,6 +39,7 @@ class DeleteModal extends Component {
 
 export default connect(null, {
     closeModal: closeModal,
-    deleteStudent: deleteStudent
+    deleteStudent: deleteStudent,
+    getStudentList: getStudentList
 })(DeleteModal);
 
