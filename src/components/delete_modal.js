@@ -27,7 +27,7 @@ class DeleteModal extends Component {
                         <p>Grade: {this.props.studentData.grade}</p>
                     </div>  
                     <div className="text-center">
-                        <button onClick={() => this.deleteCurrentStudent(id)} type="button" className="btn btn-danger">Delete</button>
+                        <button onClick={() => this.deleteCurrentStudent(id)} type="button" className="mr-3 btn btn-danger">Delete</button>
                         <button onClick={this.props.closeModal} type="button" className="btn btn-light">Cancel</button>
                     </div>
                     </div>
