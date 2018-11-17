@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { addStudent } from '../actions';
 import { getStudentList } from '../actions';
 
+const noMargin = {
+    margin: '0'
+}
 
 class AddStudent extends Component {
 
@@ -50,7 +53,9 @@ class AddStudent extends Component {
                   {checkLabelInput()}
                 </div> 
                  <input placeholder={ label } className="d-block my-1 form-control" autoComplete="off" {...input} type={ type || "text"}/>    
-                 <p>{ touched && error }</p>
+                 <div className= {touched && error ? "container" : null}>
+                    <p style={noMargin}>{ touched && error }</p>
+                 </div>
             </div>
 
         )
@@ -58,7 +63,7 @@ class AddStudent extends Component {
     render() {
         const { handleSubmit } = this.props;
         return (
-            <form className="form-group col-lg-4 order-lg-2 order-sm-1 order-xs-1">
+            <form onSubmit={handleSubmit} className="form-group col-lg-4 order-lg-2 order-sm-1 order-xs-1">
                 <h4>Add Student or Update</h4>
                 <Field label="Student Name" name="name" component={this.renderInput}/>
                 <Field label="Student Course" name="course" component={this.renderInput}/>
@@ -72,7 +77,6 @@ class AddStudent extends Component {
 function validate(values) {
     const { name, course, grade } = values;
     const errors = {};
-
     if (!name) {
         errors.name = 'Please enter name'
     }
@@ -81,6 +85,8 @@ function validate(values) {
     }
     if (!grade) {
        errors.grade = 'Please enter a grade' 
+    } else if (/[0-9]/.test(grade)) {
+        errors.grade = 'Invalid number'
     }
     return errors
 }
@@ -89,8 +95,6 @@ AddStudent = reduxForm({
     form: 'add-student',
     validate: validate,
 })(AddStudent);
-
-
 
 export default connect(null, {
     addStudent: addStudent,

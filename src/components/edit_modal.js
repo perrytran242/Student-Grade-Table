@@ -9,7 +9,7 @@ class EditModal extends Component {
             <div className="basic-modal" onClick={this.props.closeModal}>
                 <div onClick={e => e.stopPropagation()} className="basic-modal-content">
                     <div onClick={this.props.closeModal} className="close-button">X</div>
-                    <h1 className="text-danger text-center">Delete Student?</h1>
+                    <h3 className="alert alert-info text-dark text-center" role="alert">Edit Student</h3>
                     <div className="text-center">
                         <button onClick={this.props.closeModal} type="button" className="btn btn-light">Cancel</button>
                     </div>
