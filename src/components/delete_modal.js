@@ -17,6 +17,9 @@ class DeleteModal extends Component {
     
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis fugiat laboriosam quo? Ab officia tempore ratione id, modi possimus adipisci autem, inventore reiciendis facere nesciunt.
                     </p>
+                    <p>{this.props.studentData.name}</p>
+                    <p>{this.props.studentData.subject}</p>
+                    <p>{this.props.studentData.grade}</p>
                     </div>
                 </div>
         )

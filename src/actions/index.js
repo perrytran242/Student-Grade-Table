@@ -62,7 +62,6 @@ export const getStudentInfo = (id) => dispatch => {
     });
 }
 
-
 export function openModal() {
     return {
         type: types.OPEN_DELETE_MODAL,
