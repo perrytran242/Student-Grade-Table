@@ -56,7 +56,6 @@ class AddStudent extends Component {
         )
     }
     render() {
-        console.log(this.props);
         const { handleSubmit } = this.props;
         return (
             <form className="form-group col-lg-4 order-lg-2 order-sm-1 order-xs-1">

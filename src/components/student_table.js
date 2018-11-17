@@ -16,7 +16,8 @@ class StudentTable extends Component {
         super(props);
 
         this.state = {
-            key: null
+            key: null,
+            id: null
         }
     }
 
@@ -38,10 +39,11 @@ class StudentTable extends Component {
         getStudentList();
     }
 
-    openDeleteModal(key) {
+    openDeleteModal(key, id) {
         this.props.openModal();
         this.setState({
-            studentData: this.props.students[key]
+            studentData: this.props.students[key],
+            id
         });
     }
 
@@ -56,7 +58,7 @@ class StudentTable extends Component {
                         <td>{subject}</td>
                         <td>{grade}</td>
                         <td>
-                            <button onClick={() => this.openDeleteModal(key)} className="btn btn-danger" type="button">Delete</button>
+                            <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger" type="button">Delete</button>
                         </td>
                         <td>
                             <button onClick={() => this.updateStudent(inputValues.name, inputValues.grade, inputValues.course, key)} type="button" className="btn btn-warning">Update</button>
@@ -68,7 +70,6 @@ class StudentTable extends Component {
     }
 
     render() {
-        console.log(this.props);
         const { students } = this.props; 
 
         if ( !students) {
@@ -76,7 +77,7 @@ class StudentTable extends Component {
         }  
         return (
             <div className="row">   
-                <div>{this.props.isOpen ? <DeleteModal studentData={this.state.studentData} /> : null}</div>
+                <div>{this.props.isOpen ? <DeleteModal id={this.state.id} studentData={this.state.studentData} /> : null}</div>
                 <table className="my-2 table col-lg-8 order-lg-1 order-sm-2 order-2">
                     <thead className="thead-dark">
                         <tr>
