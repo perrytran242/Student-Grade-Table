@@ -57,7 +57,6 @@ class StudentTable extends Component {
                         <td>{grade}</td>
                         <td>
                             <button onClick={() => this.openDeleteModal(key)} className="btn btn-danger" type="button">Delete</button>
-                            {/* <button onClick={() => this.removeStudent(key)} type="button" className="btn btn-danger">Delete</button> */}
                         </td>
                         <td>
                             <button onClick={() => this.updateStudent(inputValues.name, inputValues.grade, inputValues.course, key)} type="button" className="btn btn-warning">Update</button>
