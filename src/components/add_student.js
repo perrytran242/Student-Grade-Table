@@ -5,7 +5,8 @@ import { addStudent } from '../actions';
 import { getStudentList } from '../actions';
 
 const noMargin = {
-    margin: '0'
+    margin: '0',
+    color: 'red'
 }
 
 class AddStudent extends Component {
@@ -52,7 +53,7 @@ class AddStudent extends Component {
                 <div className="input-group-prepend">
                   {checkLabelInput()}
                 </div> 
-                 <input placeholder={ label } className="d-block my-1 form-control" autoComplete="off" {...input} type={ type || "text"}/>    
+                 <input  placeholder={ label } className="d-block my-1 form-control" autoComplete="off" {...input} type={ type || "text"}/>    
                  <div className= {touched && error ? "container" : null}>
                     <p style={noMargin}>{ touched && error }</p>
                  </div>
@@ -83,10 +84,8 @@ function validate(values) {
     if (!course) {
         errors.course = 'Please enter course'
     }
-    if (!grade) {
-       errors.grade = 'Please enter a grade' 
-    } else if (/[0-9]/.test(grade)) {
-        errors.grade = 'Invalid number'
+    if (!grade || !/^[0-9]{1,3}$/i.test(grade)) {
+       errors.grade = 'Invalid Number' 
     }
     return errors
 }
@@ -100,3 +99,5 @@ export default connect(null, {
     addStudent: addStudent,
     getStudentList: getStudentList
 })(AddStudent);
+
+/^[0-9]{1,10}$/
