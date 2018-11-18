@@ -23,14 +23,13 @@ class StudentTable extends Component {
         }
     }
 
-    openEditModal = (studentData) => {
+    openEditModal = (studentData, id) => {
         this.setState({
             editModalOpen: true,
-            studentData
-        })
+            studentData,
+            id
+        });
     }
-
-    // openEditModal = () => this.setState({editModalOpen: true})
 
     closeEditModal = () => this.setState({editModalOpen: false})
  
@@ -71,7 +70,7 @@ class StudentTable extends Component {
                         <td>{subject}</td>
                         <td>{grade}</td>
                         <td>
-                             <button onClick={() => this.openEditModal(students[key])} type="button" className="mr-2 btn btn-warning btn-sm">Edit</button>
+                             <button onClick={() => this.openEditModal(students[key], key)} type="button" className="mr-2 btn btn-warning btn-sm">Edit</button>
                             {/* <button onClick={() => this.updateStudent(inputValues.name, inputValues.grade, inputValues.course, key)} type="button" className="mr-2 btn btn-warning btn-sm">Edit</button> */}
                             <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
                         </td>
@@ -92,7 +91,7 @@ class StudentTable extends Component {
         }  
         return (
             <div className="row">   
-                <div>{this.state.editModalOpen ? <EditModal studentData={this.state.studentData} closeModal={this.closeEditModal} /> : null}</div>
+                <div>{this.state.editModalOpen ? <EditModal _id={this.state.id} studentData={this.state.studentData} closeModal={this.closeEditModal} /> : null}</div>
                 <div>{this.props.isOpen ? <DeleteModal id={this.state.id} studentData={this.state.studentData} /> : null}</div>
                 <table className="my-2 table col-lg-8 order-lg-1 order-sm-2 order-2">
                     <thead className="thead-dark">

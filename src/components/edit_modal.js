@@ -13,27 +13,49 @@ class EditModal extends Component {
             studentCourse: '',
             studentGrade: '',
         }
-
     }
-    handleChange(event) {
 
+    componentDidMount() {
+        this.setState({
+            studentName: this.props.studentData.name,
+            studentCourse: this.props.studentData.subject,
+            studentGrade: this.props.studentData.grade
+        });
+    }
+
+    handleChangeStudent = (event) => {
+        this.setState({
+            studentName: event.target.value,
+        });
+    }
+
+    handleChangeCourse = (event) => {
+        this.setState({
+            studentCourse: event.target.value
+        })
+    }
+
+    handleChangeGrade = (event) => {
+        this.setState({
+            studentGrade: event.target.value
+        })
     }
 
     render() {
-        console.log("PROPS IN EDIT MODAL:", this.props);
+        console.log("PROPS IN EDIT MODAL:", this.state);
         return (
             <div className="basic-modal" onClick={this.props.closeModal}>
                 <div onClick={e => e.stopPropagation()} className="basic-modal-content">
                     <h3 className="alert alert-info text-dark text-center" role="alert">Edit Student</h3>
                     <form action="">
                         <div className="input-group mb-3">
-                            <input onChange={} value={this.props.studentData.name} placeholder="Student Name" type="text" className="d-block my-1 form-control" autoComplete="off"/>
+                            <input value={this.state.studentName} onChange={this.handleChangeStudent} placeholder="Student Name" type="text" className="d-block my-1 form-control" autoComplete="off"/>
                         </div>
                         <div className="input-group mb-3">
-                            <input value={this.props.studentData.subject} placeholder="Student Course" type="text" className="d-block my-1 form-control"/>
+                            <input value={this.state.studentCourse} onChange={this.handleChangeCourse} placeholder="Student Course" type="text" className="d-block my-1 form-control"/>
                         </div>
                         <div className="input-group mb-3">
-                            <input value={this.props.studentData.grade} placeholder="Student Grade" type="text" className="d-block my-1 form-control"/>
+                            <input value={this.state.studentGrade} onChange={this.handleChangeGrade} placeholder="Student Grade" type="text" className="d-block my-1 form-control"/>
                         </div>
                     </form>
                     <div className="text-center">
