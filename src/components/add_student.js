@@ -84,7 +84,7 @@ function validate(values) {
     if (!course) {
         errors.course = 'Please enter course'
     }
-    if (!grade || !/^[0-9]{1,3}$/i.test(grade)) {
+    if (!grade || !(/^[0-9]{1,3}$/i.test(grade)) ) {
        errors.grade = 'Invalid Number' 
     }
     return errors
