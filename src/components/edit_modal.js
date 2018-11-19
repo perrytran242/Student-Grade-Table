@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateStudentInfo } from '../actions';
-
+import { getStudentList } from '../actions';
 
 import './edit_modal.css';
 
@@ -13,6 +13,15 @@ class EditModal extends Component {
             studentCourse: '',
             studentGrade: '',
         }
+    }
+
+    updateStudentData = () => {
+        const { updateStudentInfo, _id, getStudentList, closeModal } = this.props;
+        const { studentName, studentCourse, studentGrade } = this.state;
+
+        updateStudentInfo(studentName, studentGrade, studentCourse, _id);
+        getStudentList();
+        closeModal();
     }
 
     componentDidMount() {
@@ -31,18 +40,17 @@ class EditModal extends Component {
 
     handleChangeCourse = (event) => {
         this.setState({
-            studentCourse: event.target.value
-        })
+            studentCourse: event.target.value,
+        });
     }
 
     handleChangeGrade = (event) => {
         this.setState({
             studentGrade: event.target.value
-        })
+        });
     }
 
     render() {
-        console.log("PROPS IN EDIT MODAL:", this.state);
         return (
             <div className="basic-modal" onClick={this.props.closeModal}>
                 <div onClick={e => e.stopPropagation()} className="basic-modal-content">
@@ -59,7 +67,7 @@ class EditModal extends Component {
                         </div>
                     </form>
                     <div className="text-center">
-                        <button className="btn">Save</button>
+                        <button onClick={this.updateStudentData} className="btn btn-success">Save</button>
                         <button onClick={this.props.closeModal} type="button" className="btn btn-light">Cancel</button>
                     </div>
                     </div>
@@ -69,5 +77,6 @@ class EditModal extends Component {
 }
 
 export default connect(null, {
-    updateStudentInfo: updateStudentInfo
+    updateStudentInfo: updateStudentInfo,
+    getStudentList: getStudentList
 })(EditModal);
