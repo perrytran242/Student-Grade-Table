@@ -31,7 +31,6 @@ export const getGradeAverage = () => dispatch => {
         }
 
         let gradeAverage = sumOfGrades / grade.length;
-        console.log("AVERAGE:", gradeAverage.toFixed(2));
 
         dispatch({
             type: types.GET_GRADE_AVERAGE,
@@ -79,7 +78,6 @@ export const getStudentInfo = (id) => dispatch => {
 
     dbRef.once('value').then( (snapshot) => {
         const val = snapshot.val();
-        console.log(val);
 
         dispatch({
             type: types.GET_STUDENT_INFO,
