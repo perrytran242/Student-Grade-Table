@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { addStudent } from '../actions';
 import { getStudentList } from '../actions';
 
+const noMargin = {
+    margin: '0',
+    color: 'red'
+}
 
 class AddStudent extends Component {
 
@@ -36,6 +40,7 @@ class AddStudent extends Component {
         }
 
         const checkLabelInput = () => {
+            console.log("LABEL:", label);
             if ( label === "Student Name") {
                 return  <span style={faUser} className="input-group-text"><i className="fas fa-user"></i></span>
             } else if ( label === "Student Course") {
@@ -49,8 +54,10 @@ class AddStudent extends Component {
                 <div className="input-group-prepend">
                   {checkLabelInput()}
                 </div> 
-                 <input placeholder={ label } className="d-block my-1 form-control" autoComplete="off" {...input} type={ type || "text"}/>    
-                 <p>{ touched && error }</p>
+                 <input  placeholder={ label } className="d-block my-1 form-control" autoComplete="off" {...input} type={ type || "text"}/>    
+                 <div className= {touched && error ? "container" : null}>
+                    <p style={noMargin}>{ touched && error }</p>
+                 </div>
             </div>
 
         )
@@ -58,7 +65,7 @@ class AddStudent extends Component {
     render() {
         const { handleSubmit } = this.props;
         return (
-            <form className="form-group col-lg-4 order-lg-2 order-sm-1 order-xs-1">
+            <form onSubmit={handleSubmit} className="form-group col-lg-4 order-lg-2 order-sm-1 order-xs-1">
                 <h4>Add Student or Update</h4>
                 <Field label="Student Name" name="name" component={this.renderInput}/>
                 <Field label="Student Course" name="course" component={this.renderInput}/>
@@ -72,15 +79,14 @@ class AddStudent extends Component {
 function validate(values) {
     const { name, course, grade } = values;
     const errors = {};
-
     if (!name) {
         errors.name = 'Please enter name'
     }
     if (!course) {
         errors.course = 'Please enter course'
     }
-    if (!grade) {
-       errors.grade = 'Please enter a grade' 
+    if (!grade || !(/^[0-9]{1,3}$/i.test(grade)) ) {
+       errors.grade = 'Invalid Number' 
     }
     return errors
 }
@@ -90,9 +96,9 @@ AddStudent = reduxForm({
     validate: validate,
 })(AddStudent);
 
-
-
 export default connect(null, {
     addStudent: addStudent,
     getStudentList: getStudentList
 })(AddStudent);
+
+/^[0-9]{1,10}$/

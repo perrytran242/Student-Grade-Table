@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import AddStudent from './add_student';
 import DeleteModal from './delete_modal';
+import EditModal from './edit_modal';
 import { connect } from 'react-redux';
 import { getFormValues } from 'redux-form';
 
@@ -14,13 +15,24 @@ import { deleteStudent } from '../actions';
 class StudentTable extends Component {
     constructor(props) {
         super(props);
-
+        
         this.state = {
-            key: null,
-            id: null
+            studentData: null,
+            id: null,
+            editModalOpen: false
         }
     }
 
+    openEditModal = (studentData, id) => {
+        this.setState({
+            editModalOpen: true,
+            studentData,
+            id
+        });
+    }
+
+    closeEditModal = () => this.setState({editModalOpen: false})
+ 
     componentDidMount() {
         this.props.getStudentList();
     }
@@ -58,9 +70,8 @@ class StudentTable extends Component {
                         <td>{subject}</td>
                         <td>{grade}</td>
                         <td>
-                            <button onClick={() => this.updateStudent(inputValues.name, inputValues.grade, inputValues.course, key)} type="button" className="mr-1 btn btn-warning btn-sm">Edit</button>
+                            <button onClick={() => this.openEditModal(students[key], key)} type="button" className="mr-2 btn btn-warning btn-sm">Edit</button>
                             <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
-
                         </td>
                         <td>
                         </td>
@@ -71,6 +82,7 @@ class StudentTable extends Component {
     }
 
     render() {
+ 
         const { students } = this.props; 
 
         if ( !students) {
@@ -78,6 +90,7 @@ class StudentTable extends Component {
         }  
         return (
             <div className="row">   
+                <div>{this.state.editModalOpen ? <EditModal _id={this.state.id} studentData={this.state.studentData} closeModal={this.closeEditModal} /> : null}</div>
                 <div>{this.props.isOpen ? <DeleteModal id={this.state.id} studentData={this.state.studentData} /> : null}</div>
                 <table className="my-2 table col-lg-8 order-lg-1 order-sm-2 order-2">
                     <thead className="thead-dark">
@@ -99,7 +112,6 @@ class StudentTable extends Component {
 }
 
 function mapStateToProps(state) {
-
     return {
         students: state.students.studentList,
         inputValues: getFormValues('add-student')(state),
