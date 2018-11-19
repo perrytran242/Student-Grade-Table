@@ -40,7 +40,6 @@ class AddStudent extends Component {
         }
 
         const checkLabelInput = () => {
-            console.log("LABEL:", label);
             if ( label === "Student Name") {
                 return  <span style={faUser} className="input-group-text"><i className="fas fa-user"></i></span>
             } else if ( label === "Student Course") {
@@ -66,7 +65,7 @@ class AddStudent extends Component {
         const { handleSubmit } = this.props;
         return (
             <form onSubmit={handleSubmit} className="form-group col-lg-4 order-lg-2 order-sm-1 order-xs-1">
-                <h4>Add Student or Update</h4>
+                <h4>Add Student</h4>
                 <Field label="Student Name" name="name" component={this.renderInput}/>
                 <Field label="Student Course" name="course" component={this.renderInput}/>
                 <Field label="Student Grade" name="grade" component={this.renderInput} type="number"/>

@@ -3,6 +3,7 @@ import types from '../actions/types';
 const DEFAULT_STATE = {
     studentList: [],
     studentInfo: null,
+    gradeAverage: null,
 }
 
 export default (state = DEFAULT_STATE, action) => {
@@ -11,6 +12,8 @@ export default (state = DEFAULT_STATE, action) => {
             return { ...state, studentList: action.payload}
         case types.GET_STUDENT_INFO:
             return { ...state, studentInfo: action.payload}
+        case types.GET_GRADE_AVERAGE:
+            return { ...state, gradeAverage: action.payload}
         default: 
             return state;
     }
