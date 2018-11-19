@@ -6,12 +6,38 @@ export const getStudentList = () => dispatch => {
 
     dbRef.once('value').then( (snapshot) => {
         const val = snapshot.val();
-
+        
         dispatch({
             type: types.GET_STUDENT_LIST,
             payload: val
         });
     });
+}
+
+export const getGradeAverage = () => dispatch => {
+    let sumOfGrades = 0;
+    const dbRef = db.ref('/students');
+    
+
+    dbRef.once('value').then( (snapshot) => {
+        const val = snapshot.val();
+
+        const grade = Object.keys(val).map(key => {
+            return parseInt(val[key].grade);
+        });
+
+        for ( let i = 0; i < grade.length; i++) {
+            sumOfGrades = sumOfGrades + grade[i];
+        }
+
+        let gradeAverage = sumOfGrades / grade.length;
+        console.log("AVERAGE:", gradeAverage.toFixed(2));
+
+        dispatch({
+            type: types.GET_GRADE_AVERAGE,
+            payload: gradeAverage.toFixed(2)
+        });
+    }); 
 }
 
 export const addStudent = (name, grade, subject) => dispatch => {

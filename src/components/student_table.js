@@ -3,8 +3,8 @@ import AddStudent from './add_student';
 import DeleteModal from './delete_modal';
 import EditModal from './edit_modal';
 import { connect } from 'react-redux';
-import { getFormValues } from 'redux-form';
 
+import { getGradeAverage } from '../actions';
 import { getStudentInfo } from '../actions';
 import { openModal } from '../actions';
 import { getStudentList } from '../actions';
@@ -60,7 +60,8 @@ class StudentTable extends Component {
     }
 
     renderStudentList() {
-        const { students, inputValues } = this.props;
+        
+        const { students } = this.props;
         return Object.keys(students).map(key => {
             const { name, grade, subject } = students[key];
             return (
@@ -70,8 +71,10 @@ class StudentTable extends Component {
                         <td>{subject}</td>
                         <td>{grade}</td>
                         <td>
-                            <button onClick={() => this.openEditModal(students[key], key)} type="button" className="mr-2 btn btn-warning btn-sm">Edit</button>
-                            <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
+                            <div className="btn-container">
+                                <button onClick={() => this.openEditModal(students[key], key)} type="button" className="mr-2 btn btn-warning btn-sm">Edit</button>
+                                <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
+                            </div>
                         </td>
                         <td>
                         </td>
@@ -82,7 +85,7 @@ class StudentTable extends Component {
     }
 
     render() {
- 
+        this.props.getGradeAverage();
         const { students } = this.props; 
 
         if ( !students) {
@@ -114,7 +117,6 @@ class StudentTable extends Component {
 function mapStateToProps(state) {
     return {
         students: state.students.studentList,
-        inputValues: getFormValues('add-student')(state),
         isOpen: state.delete.isOpen
     }
 }
@@ -125,5 +127,6 @@ export default connect(mapStateToProps, {
     updateStudentInfo: updateStudentInfo,
     deleteStudent: deleteStudent,
     openModal: openModal,
-    getStudentInfo: getStudentInfo
+    getStudentInfo: getStudentInfo,
+    getGradeAverage: getGradeAverage
 })(StudentTable);

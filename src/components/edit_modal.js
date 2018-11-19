@@ -67,7 +67,7 @@ class EditModal extends Component {
                         </div>
                     </form>
                     <div className="text-center">
-                        <button onClick={this.updateStudentData} className="btn btn-success">Save</button>
+                        <button onClick={this.updateStudentData} className="mr-3 btn btn-success">Save</button>
                         <button onClick={this.props.closeModal} type="button" className="btn btn-light">Cancel</button>
                     </div>
                     </div>
