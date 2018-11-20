@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Field, reduxForm, } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { addStudent } from '../actions';
 import { getStudentList } from '../actions';
+import { timingSafeEqual } from 'crypto';
 
 const noMargin = {
     margin: '0',
@@ -10,13 +11,17 @@ const noMargin = {
 }
 
 class AddStudent extends Component {
-
     addStudent = async (values) => {
         await this.props.addStudent(values.name, values.grade, values.course);
         this.props.getStudentList();
         this.props.reset();
-
     }    
+
+    clearInputFields = (e) => {
+        e.preventDefault();
+        this.props.reset();
+    }
+
     renderInput( { input, type, label, meta: { touched, error }} ) {
         const faUser = {
             position: 'relative',
@@ -64,12 +69,13 @@ class AddStudent extends Component {
     render() {
         const { handleSubmit } = this.props;
         return (
-            <form onSubmit={handleSubmit} className="form-group col-lg-4 order-lg-2 order-sm-1 order-xs-1">
+            <form onSubmit={()=>handleSubmit} className="form-group col-lg-4 order-lg-2 order-sm-1 order-xs-1">
                 <h4>Add Student</h4>
                 <Field label="Student Name" name="name" component={this.renderInput}/>
                 <Field label="Student Course" name="course" component={this.renderInput}/>
                 <Field label="Student Grade" name="grade" component={this.renderInput} type="number"/>
-                <button onClick={handleSubmit(this.addStudent)} type="button" className="btn btn-success">Add</button>
+                <button onClick={handleSubmit(this.addStudent)} type="button" className="mr-2 btn btn-success">Add</button>
+                <button onClick={this.clearInputFields}  className="btn btn-light">Cancel</button>
             </form>
         )
     }
