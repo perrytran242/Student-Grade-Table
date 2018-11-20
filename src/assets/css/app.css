@@ -1,14 +1,9 @@
-@font-face {
-    font-family: quest;
-    src: url(../fonts/quest.ttf);
-}
-
 html { font-size: 1rem; }
 
 
 body {
     margin: 0;
-    min-width: 300px;
+    /* min-width: 250px; */
 }
 
 .app {
@@ -18,11 +13,6 @@ body {
     font-size: 30px;
     padding: 50px;
     text-align: center;
-}
-
-.app .logo {
-    height: 220px;
-    filter: drop-shadow(2px 2px 0px #FFF);
 }
 
 .app h1 {

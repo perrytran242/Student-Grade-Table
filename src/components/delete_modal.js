@@ -14,7 +14,6 @@ class DeleteModal extends Component {
         this.props.getStudentList();
     }
     render() {
-        console.log('PROPS IN DELETE MODAL:', this.props);
         const { id } = this.props;
         return (
             <div className="basic-modal" onClick={this.props.closeModal}>

@@ -20,10 +20,19 @@ class StudentTable extends Component {
         this.state = {
             studentData: null,
             id: null,
-            editModalOpen: false
+            editModalOpen: false,
+            length: 20,
+            showMore: false,
         }
     }
 
+
+    showMore = (e) => {
+        e.preventDefault();
+        this.setState({
+            showMore: true,
+        })
+    }
     openEditModal = (studentData, id) => {
         this.setState({
             editModalOpen: true,
@@ -65,10 +74,18 @@ class StudentTable extends Component {
         const { students } = this.props;
         return Object.keys(students).map(key => {
             const { name, grade, subject } = students[key];
+            console.log("NAME:", name.length);
+            // console.log("GRADE:", grade);
+            // console.log("SUBJECT:", subject);
+    
+            if ( name.length >= this.state.length) {
+                console.log(name.slice(0, 5));
+                var shortenedName = name.slice(0,5);
+            }            
             return (
                 <Fragment key={key}>
                     <tr>
-                        <td>{name}</td>
+                        <td>{name.length > this.state.length ? <Fragment> <a href="" onClick={this.showMore}>{this.state.showMore ? name : shortenedName+'...'}</a></Fragment> : name}</td>
                         <td>{subject}</td>
                         <td>{grade}</td>
                         <td>
