@@ -11,7 +11,6 @@ const noMargin = {
 }
 
 class AddStudent extends Component {
-
     addStudent = async (values) => {
         await this.props.addStudent(values.name, values.grade, values.course);
         this.props.getStudentList();
