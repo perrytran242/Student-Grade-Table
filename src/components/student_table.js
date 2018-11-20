@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import AddStudent from './add_student';
 import DeleteModal from './delete_modal';
 import EditModal from './edit_modal';
+import MediaQuery from 'react-responsive';
 import { connect } from 'react-redux';
 
 import { getGradeAverage } from '../actions';
@@ -72,7 +73,7 @@ class StudentTable extends Component {
                         <td>{grade}</td>
                         <td>
                             <div className="btn-container">
-                                <button onClick={() => this.openEditModal(students[key], key)} type="button" className="mr-2 my-2 btn btn-warning btn-sm">Edit</button>
+                                <button onClick={() => this.openEditModal(students[key], key)} type="button" className="mr-2 btn btn-warning btn-sm">Edit</button>
                                 <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
                             </div>
                         </td>

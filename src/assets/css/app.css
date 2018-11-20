@@ -3,8 +3,12 @@
     src: url(../fonts/quest.ttf);
 }
 
+html { font-size: 1rem; }
+
+
 body {
     margin: 0;
+    min-width: 300px;
 }
 
 .app {
@@ -33,11 +37,4 @@ body {
     animation: spin 10s linear infinite;
 }
 
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
+
