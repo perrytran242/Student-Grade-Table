@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import AddStudent from './add_student';
 import DeleteModal from './delete_modal';
 import EditModal from './edit_modal';
+import MediaQuery from 'react-responsive';
 import { connect } from 'react-redux';
 
 import { getGradeAverage } from '../actions';
@@ -19,10 +20,19 @@ class StudentTable extends Component {
         this.state = {
             studentData: null,
             id: null,
-            editModalOpen: false
+            editModalOpen: false,
+            length: 15,
+            showMore: false,
+            mediaQuery300: 0,
         }
     }
 
+    showMore = (e) => {
+        e.preventDefault();
+        this.setState({
+            showMore: true,
+        })
+    }
     openEditModal = (studentData, id) => {
         this.setState({
             editModalOpen: true,
@@ -64,20 +74,40 @@ class StudentTable extends Component {
         const { students } = this.props;
         return Object.keys(students).map(key => {
             const { name, grade, subject } = students[key];
+            console.log("NAME:", name.length);
+    
+            if ( name.length >= this.state.length) {
+                var shortenedName = name.slice(0, 5);
+            }            
             return (
                 <Fragment key={key}>
                     <tr>
-                        <td>{name}</td>
-                        <td>{subject}</td>
-                        <td>{grade}</td>
-                        <td>
+                        {/* <MediaQuery query="(min-width: 320px)"> */}
+                            <td>{name.length > this.state.length ? <Fragment> <a href="" onClick={this.showMore}>{this.state.showMore ? name : shortenedName+'...'}</a></Fragment> : name}</td>
+                            <td>{subject}</td>
+                            <td>{grade}</td>
+                            <td>
                             <div className="btn-container">
-                                <button onClick={() => this.openEditModal(students[key], key)} type="button" className="mr-2 my-2 btn btn-warning btn-sm">Edit</button>
+                                
+                                <button onClick={() => this.openEditModal(students[key], key)} type="button" className="mr-2 btn btn-warning btn-sm">Edit</button>
+                            
                                 <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
                             </div>
-                        </td>
-                        <td>
-                        </td>
+                            </td>
+                        {/* </MediaQuery> */}
+
+                        {/* <MediaQuery query="(min-width: 250px)">
+                            <td>{name.length > this.state.mediaQuery300 ? <Fragment> <a onClick={this.showMore}>{this.state.showMore ? name : '...'}</a></Fragment> : name}</td>
+                                <td>{subject}</td>
+                                <td>{grade}</td>
+                                <td>
+                                <div className="btn-container">
+                                    <button onClick={() => this.openEditModal(students[key], key)} type="button" className="mr-2 mb-2 mbbtn btn-warning btn-sm">Edit</button>
+                                    <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
+                                </div>
+                            </td>                    
+                        </MediaQuery> */}
+
                     </tr>
                 </Fragment>
             )

@@ -63,7 +63,6 @@ class AddStudent extends Component {
                     <p style={noMargin}>{ touched && error }</p>
                  </div>
             </div>
-
         )
     }
     render() {
