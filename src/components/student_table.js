@@ -21,11 +21,11 @@ class StudentTable extends Component {
             studentData: null,
             id: null,
             editModalOpen: false,
-            length: 20,
+            length: 15,
             showMore: false,
+            mediaQuery300: 0,
         }
     }
-
 
     showMore = (e) => {
         e.preventDefault();
@@ -75,27 +75,42 @@ class StudentTable extends Component {
         return Object.keys(students).map(key => {
             const { name, grade, subject } = students[key];
             console.log("NAME:", name.length);
-            // console.log("GRADE:", grade);
-            // console.log("SUBJECT:", subject);
     
             if ( name.length >= this.state.length) {
-                console.log(name.slice(0, 5));
-                var shortenedName = name.slice(0,5);
+                var shortenedName = name.slice(0, 5);
             }            
             return (
                 <Fragment key={key}>
                     <tr>
-                        <td>{name.length > this.state.length ? <Fragment> <a href="" onClick={this.showMore}>{this.state.showMore ? name : shortenedName+'...'}</a></Fragment> : name}</td>
-                        <td>{subject}</td>
-                        <td>{grade}</td>
-                        <td>
+                        {/* <MediaQuery query="(min-width: 320px)"> */}
+                            <td>{name.length > this.state.length ? <Fragment> <a href="" onClick={this.showMore}>{this.state.showMore ? name : shortenedName+'...'}</a></Fragment> : name}</td>
+                            <td>{subject}</td>
+                            <td>{grade}</td>
+                            <td>
                             <div className="btn-container">
-                                <button onClick={() => this.openEditModal(students[key], key)} type="button" className="mr-2 btn btn-warning btn-sm">Edit</button>
+                                
+                                <button onClick={() => this.openEditModal(students[key], key)} type="button" className="d-none d-sm-none d-md-block mr-2 btn btn-warning btn-sm">Edit</button>
+                             
+                                {/* <MediaQuery query="(min-width: 320px)"> */}
+                                   <button onClick={() => this.openEditModal(students[key], key)} type="button" className="d-block d-md-none d-lg-none mr-2 my-2 btn btn-warning btn-sm">Edit</button>
+                                {/* </MediaQuery> */}
                                 <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
                             </div>
-                        </td>
-                        <td>
-                        </td>
+                            </td>
+                        {/* </MediaQuery> */}
+
+                        {/* <MediaQuery query="(min-width: 250px)">
+                            <td>{name.length > this.state.mediaQuery300 ? <Fragment> <a onClick={this.showMore}>{this.state.showMore ? name : '...'}</a></Fragment> : name}</td>
+                                <td>{subject}</td>
+                                <td>{grade}</td>
+                                <td>
+                                <div className="btn-container">
+                                    <button onClick={() => this.openEditModal(students[key], key)} type="button" className="mr-2 mb-2 mbbtn btn-warning btn-sm">Edit</button>
+                                    <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
+                                </div>
+                            </td>                    
+                        </MediaQuery> */}
+
                     </tr>
                 </Fragment>
             )
