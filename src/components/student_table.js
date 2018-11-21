@@ -89,11 +89,8 @@ class StudentTable extends Component {
                             <td>
                             <div className="btn-container">
                                 
-                                <button onClick={() => this.openEditModal(students[key], key)} type="button" className="d-none d-sm-none d-md-block mr-2 btn btn-warning btn-sm">Edit</button>
-                             
-                                {/* <MediaQuery query="(min-width: 320px)"> */}
-                                   <button onClick={() => this.openEditModal(students[key], key)} type="button" className="d-block d-md-none d-lg-none mr-2 my-2 btn btn-warning btn-sm">Edit</button>
-                                {/* </MediaQuery> */}
+                                <button onClick={() => this.openEditModal(students[key], key)} type="button" className="mr-2 btn btn-warning btn-sm">Edit</button>
+                            
                                 <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
                             </div>
                             </td>
