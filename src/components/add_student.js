@@ -54,12 +54,12 @@ class AddStudent extends Component {
             }
         }
         return (
-            <div className="input-group mb-3">
+            <div className="input-group">
                 <div className="input-group-prepend">
                   {checkLabelInput()}
                 </div> 
                  <input  placeholder={ label } className="d-block my-1 form-control" autoComplete="off" {...input} type={ type || "text"}/>    
-                 <div className= {touched && error ? "container" : null}>
+                 <div className= {touched && error ? "container alert alert-warning" : null}>
                     <p style={noMargin}>{ touched && error }</p>
                  </div>
             </div>
@@ -90,7 +90,9 @@ function validate(values) {
         errors.course = 'Please enter course'
     }
     if (!grade || !(/^[0-9]{1,3}$/i.test(grade)) ) {
-       errors.grade = 'Invalid Number' 
+       errors.grade = 'Input number from 1-100';
+    } else if (grade > 100 || grade < 0 ) {
+        errors.grade = 'Input grade from 0-100';
     }
     return errors
 }
