@@ -31,7 +31,7 @@ class StudentTable extends Component {
         e.preventDefault();
         this.setState({
             showMore: true,
-        })
+        });
     }
     openEditModal = (studentData, id) => {
         this.setState({
@@ -82,7 +82,6 @@ class StudentTable extends Component {
             return (
                 <Fragment key={key}>
                     <tr>
-                        {/* <MediaQuery query="(min-width: 320px)"> */}
                             <td>{name.length > this.state.length ? <Fragment> <a href="" onClick={this.showMore}>{this.state.showMore ? name : shortenedName+'...'}</a></Fragment> : name}</td>
                             <td>{subject}</td>
                             <td>{grade}</td>
@@ -94,9 +93,8 @@ class StudentTable extends Component {
                                 <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
                             </div>
                             </td>
-                        {/* </MediaQuery> */}
 
-                        {/* <MediaQuery query="(min-width: 250px)">
+                        <MediaQuery query="(max-width: 320px)">
                             <td>{name.length > this.state.mediaQuery300 ? <Fragment> <a onClick={this.showMore}>{this.state.showMore ? name : '...'}</a></Fragment> : name}</td>
                                 <td>{subject}</td>
                                 <td>{grade}</td>
@@ -106,7 +104,7 @@ class StudentTable extends Component {
                                     <button onClick={() => this.openDeleteModal(key, key)} className="btn btn-danger btn-sm" type="button">Delete</button>
                                 </div>
                             </td>                    
-                        </MediaQuery> */}
+                        </MediaQuery>
 
                     </tr>
                 </Fragment>
