@@ -1,4 +1,4 @@
-.basic-modal {
+.edit-modal {
     background-color: rgba(0, 0, 0, .7);
     display: flex;
     height: 100vh;
@@ -9,7 +9,7 @@
     z-index: 1000;
 }
 
-.basic-modal-content {
+.edit-modal-content {
     background-color: white;
     border-radius: 20px;
     margin: auto;
@@ -19,7 +19,7 @@
     z-index: 1;
 }
 
-.basic-modal-content h1 {
+.edit-modal-content h1 {
     border-bottom: 1px solid #dedede;
     margin-bottom: 10px;
     padding-bottom: 10px;
@@ -48,4 +48,38 @@
 .student-info {
     border-bottom: 1px solid #dedede;
     margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+    h3.edit-student-header {
+        font-size: 14px;
+    }
+    .edit-modal-content {
+        width: 270px;
+        font-size: 0.9rem;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    .edit-modal-content {
+        width: 350px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .edit-modal-content {
+        width: 400px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .edit-modal-content {
+        width: 500px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .edit-modal-content {
+        width: 600px;
+    }
 }

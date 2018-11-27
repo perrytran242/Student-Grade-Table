@@ -31,7 +31,7 @@ class StudentTable extends Component {
     showMore = (e) => {
         e.preventDefault();
         this.setState({
-            showMore: true,
+            showMore: !this.state.showMore
         });
     }
     openEditModal = (studentData, id) => {
@@ -86,7 +86,7 @@ class StudentTable extends Component {
                             <td >{name.length > this.state.maxCharLength ? 
                                 <Fragment> 
                                     <p>
-                                        {this.state.showMore ? name : shortenedName}<a href=" " onClick={this.showMore}>...</a>
+                                        {this.state.showMore ? name : shortenedName}<a href="" onClick={this.showMore}>...</a>
                                     </p>
                                 </Fragment> : name}
                             </td>
@@ -104,7 +104,13 @@ class StudentTable extends Component {
 
 
                         <MediaQuery query="(max-width: 600px)">
-                            <td>{name.length > this.state.maxCharLength ? <Fragment> <p>{this.state.showMore ? name : shortenedName}<a onClick={this.showMore}>...</a></p></Fragment> : name}</td>
+                            <td >{name.length > this.state.maxCharLength ? 
+                                <Fragment> 
+                                    <p>
+                                        {this.state.showMore ? name : shortenedName}<a href="" onClick={this.showMore}>...</a>
+                                    </p>
+                                </Fragment> : name}
+                            </td>
                                 <td>{subject}</td>
                                 <td>{grade}</td>
                                 <td>
