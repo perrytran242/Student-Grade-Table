@@ -16,12 +16,12 @@ class DeleteModal extends Component {
     render() {
         const { id } = this.props;
         return (
-            <div className="basic-modal" onClick={this.props.closeModal}>
-                <div onClick={e => e.stopPropagation()} className="basic-modal-content">
+            <div className="delete-modal" onClick={this.props.closeModal}>
+                <div onClick={e => e.stopPropagation()} className="delete-modal-content">
                     <div onClick={this.props.closeModal} className="close-button">X</div>
                     <h3 className="alert alert-danger text-dark text-center">Delete Student?</h3>
                     <div className="text-center student-info">
-                        <h5>Do you wish to delete this student?</h5>
+                        <h5 className="delete-student-header">Do you wish to delete this student?</h5>
                         <p className="font-weight-bold">Name: {this.props.studentData.name}</p>
                         <p className="font-weight-bold">Course: {this.props.studentData.subject}</p>
                         <p className="font-weight-bold">Grade: {this.props.studentData.grade}</p>

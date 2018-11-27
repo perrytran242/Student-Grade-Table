@@ -52,8 +52,8 @@ class EditModal extends Component {
 
     render() {
         return (
-            <div className="basic-modal" onClick={this.props.closeModal}>
-                <div onClick={e => e.stopPropagation()} className="basic-modal-content">
+            <div className="edit-modal" onClick={this.props.closeModal}>
+                <div onClick={e => e.stopPropagation()} className="edit-modal-content">
                     <h3 className="alert alert-info text-dark text-center" role="alert">Edit Student</h3>
                     <form action="">
                         <div className="input-group mb-3">

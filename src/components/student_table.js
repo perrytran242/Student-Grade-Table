@@ -12,6 +12,7 @@ import { getStudentList } from '../actions';
 import { updateStudentInfo } from '../actions';
 import { deleteStudent } from '../actions';
 
+import './student_table.css';
 
 class StudentTable extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class StudentTable extends Component {
             studentData: null,
             id: null,
             editModalOpen: false,
-            length: 15,
+            maxCharLength: 15,
             showMore: false,
             breakPoint: 0,
         }
@@ -30,7 +31,7 @@ class StudentTable extends Component {
     showMore = (e) => {
         e.preventDefault();
         this.setState({
-            showMore: true,
+            showMore: !this.state.showMore
         });
     }
     openEditModal = (studentData, id) => {
@@ -74,16 +75,21 @@ class StudentTable extends Component {
         const { students } = this.props;
         return Object.keys(students).map(key => {
             const { name, grade, subject } = students[key];
-            console.log("NAME:", name.length);
     
-            if ( name.length >= this.state.length) {
-                var shortenedName = name.slice(0, 5);
+            if ( name.length >= this.state.maxCharLength) {
+                var shortenedName = name.slice(0, 3);
             }            
             return (
                 <Fragment key={key}>
-                    <tr>
+                    <tr className="tables">
                         <MediaQuery query="(min-width: 601px)">
-                            <td>{name.length > this.state.length ? <Fragment> <a href="" onClick={this.showMore}>{this.state.showMore ? name : shortenedName+'...'}</a></Fragment> : name}</td>
+                            <td >{name.length > this.state.maxCharLength ? 
+                                <Fragment> 
+                                    <p>
+                                        {this.state.showMore ? name : shortenedName}<a href="" onClick={this.showMore}>...</a>
+                                    </p>
+                                </Fragment> : name}
+                            </td>
                                 <td>{subject}</td>
                                 <td>{grade}</td>
                                 <td>
@@ -98,7 +104,13 @@ class StudentTable extends Component {
 
 
                         <MediaQuery query="(max-width: 600px)">
-                            <td>{name.length > this.state.breakPoint ? <Fragment> <a onClick={this.showMore}>{this.state.showMore ? name : '...'}</a></Fragment> : name}</td>
+                            <td >{name.length > this.state.maxCharLength ? 
+                                <Fragment> 
+                                    <p>
+                                        {this.state.showMore ? name : shortenedName}<a href="" onClick={this.showMore}>...</a>
+                                    </p>
+                                </Fragment> : name}
+                            </td>
                                 <td>{subject}</td>
                                 <td>{grade}</td>
                                 <td>
@@ -126,7 +138,7 @@ class StudentTable extends Component {
             <div className="row">   
                 <div>{this.state.editModalOpen ? <EditModal _id={this.state.id} studentData={this.state.studentData} closeModal={this.closeEditModal} /> : null}</div>
                 <div>{this.props.isOpen ? <DeleteModal id={this.state.id} studentData={this.state.studentData} /> : null}</div>
-                <table className="my-2 table col-lg-8 order-lg-1 order-sm-2 order-2">
+                <table className="tables my-2 table col-lg-8 order-lg-1 order-sm-2 order-2">
                     <thead className="thead-dark">
                         <tr>
                             <th scope="col">Student Name</th>
