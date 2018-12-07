@@ -10,6 +10,11 @@ const noMargin = {
 }
 
 class AddStudent extends Component {
+    constructor(props) {
+        super(props);
+
+    }
+
     addStudent = async (values) => {
         await this.props.addStudent(values.name, values.grade, values.course);
         this.props.getStudentList();
@@ -57,7 +62,7 @@ class AddStudent extends Component {
                 <div className="input-group-prepend">
                   {checkLabelInput()}
                 </div> 
-                 <input  placeholder={ label } className="d-block my-1 form-control" autoComplete="off" {...input} type={ type || "text"}/>    
+                 <input placeholder={ label } className="d-block my-1 form-control" autoComplete="off" {...input} type={ type || "text"}/>    
                  <div className= {touched && error ? "container alert alert-warning" : null}>
                     <p style={noMargin}>{ touched && error }</p>
                  </div>
@@ -106,4 +111,3 @@ export default connect(null, {
     getStudentList: getStudentList
 })(AddStudent);
 
-/^[0-9]{1,10}$/

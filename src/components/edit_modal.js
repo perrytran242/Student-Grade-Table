@@ -54,7 +54,7 @@ class EditModal extends Component {
         return (
             <div className="edit-modal" onClick={this.props.closeModal}>
                 <div onClick={e => e.stopPropagation()} className="edit-modal-content">
-                    <h3 className="alert alert-info text-dark text-center" role="alert">Edit Student</h3>
+                    <h3 className="edit-student-header alert alert-info text-dark text-center" role="alert">Edit Student</h3>
                     <form action="">
                         <div className="input-group mb-3">
                             <input value={this.state.studentName} onChange={this.handleChangeStudent} placeholder="Student Name" type="text" className="d-block my-1 form-control" autoComplete="off"/>
