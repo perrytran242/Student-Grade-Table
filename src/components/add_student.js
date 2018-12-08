@@ -12,18 +12,20 @@ const noMargin = {
 class AddStudent extends Component {
     constructor(props) {
         super(props);
-
     }
-
     addStudent = async (values) => {
+        if (!values.name || !values.grade || !values.course) {
+            return null;
+        }
         await this.props.addStudent(values.name, values.grade, values.course);
         this.props.getStudentList();
         this.props.reset();
     }    
 
     clearInputFields = (e) => {
+        const { reset } = this.props;
         e.preventDefault();
-        this.props.reset();
+        reset();
     }
 
     renderInput( { input, type, label, meta: { touched, error }} ) {
@@ -70,7 +72,8 @@ class AddStudent extends Component {
         )
     }
     render() {
-        const { handleSubmit } = this.props;
+        console.log("PROPS:", this.props);
+        const { handleSubmit, reset } = this.props;
         return (
             <form onSubmit={()=>handleSubmit} className="form-group col-lg-4 order-lg-2 order-sm-1 order-xs-1">
                 <h4>Add Student</h4>
@@ -78,7 +81,7 @@ class AddStudent extends Component {
                 <Field label="Student Course" name="course" component={this.renderInput}/>
                 <Field label="Student Grade" name="grade" component={this.renderInput} type="number"/>
                 <button onClick={handleSubmit(this.addStudent)} type="button" className="mr-2 btn btn-success">Add</button>
-                <button onClick={this.clearInputFields}  className="btn btn-light">Cancel</button>
+                <button onClick={ this.clearInputFields }  className="btn btn-light">Cancel</button>
             </form>
         )
     }

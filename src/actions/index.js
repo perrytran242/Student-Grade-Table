@@ -1,4 +1,5 @@
 import { db } from '../firebase';
+import { reset, clearFields } from 'redux-form'
 import types from './types';
 
 export const getStudentList = () => dispatch => {
@@ -85,6 +86,7 @@ export const getStudentInfo = (id) => dispatch => {
         });
     });
 }
+
 
 export function openModal() {
     return {
