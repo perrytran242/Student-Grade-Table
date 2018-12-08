@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MediaQuery from 'react-responsive';
 import { connect } from 'react-redux';
 import { getGradeAverage } from '../actions';
 
@@ -8,6 +7,7 @@ class StudentAverage extends Component {
         this.props.getGradeAverage();
     }
     render() {
+        
         return (
             <div className="row">
                 <h2 className="d-none d-md-block border-bottom my-3 col-lg-12">Student Grade Table
